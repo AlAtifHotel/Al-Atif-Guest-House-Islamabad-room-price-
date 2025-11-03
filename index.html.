@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Al-Atif Guest House Islamabad - Live Rates</title>
+</head>
+<body>
+  <h2>Al-Atif Guest House Islamabad - Room Rates</h2>
+  <table border="1" id="rates"></table>
+
+  <script>
+    const sheetUrl = "https://docs.google.com/spreadsheets/d/1f9QSqWFO5cFGgzunlz29A9lLJBIwMHxDcCKs-RhNAWA/gviz/tq?tqx=out:csv";
+
+    fetch(sheetUrl)
+      .then(res => res.text())
+      .then(csv => {
+        const rows = csv.split("\n").map(r => r.split(","));
+        const table = document.getElementById("rates");
+        rows.forEach(row => {
+          const tr = document.createElement("tr");
+          row.forEach(cell => {
+            const td = document.createElement("td");
+            td.innerText = cell;
+            tr.appendChild(td);
+          });
+          table.appendChild(tr);
+        });
+      });
+  </script>
+</body>
+</html>
